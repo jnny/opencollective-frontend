@@ -76,10 +76,6 @@ class CollectiveCard extends React.Component {
       params = { slug: collective.slug };
     }
 
-    if (LoggedInUser) {
-      params.referral = LoggedInUser.CollectiveId;
-    }
-
     return (
       <Link route={route} target="_top" params={params}>
         <div className={`CollectiveCard ${collective.type}`}>

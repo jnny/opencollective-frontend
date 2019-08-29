@@ -198,9 +198,7 @@ class OrderSuccessPage extends React.Component {
 
     const order = data.Order;
     const { collective, fromCollective, tier } = order;
-    const referralOpts = objectToQueryString({ referral: fromCollective.id });
-    const websiteUrl = process.env.WEBSITE_URL || 'https://opencollective.com';
-    const referralURL = `${websiteUrl}${collective.path}/${referralOpts}`;
+    const shareURL = `${process.env.WEBSITE_URL}${collective.path}`;
     const message = this.getTwitterMessage();
     const isFreeTier = get(tier, 'amount') === 0 || (get(tier, 'presets') || []).includes(0);
     const isManualDonation = order.status === 'PENDING' && !order.paymentMethod && !isFreeTier;
@@ -232,11 +230,11 @@ class OrderSuccessPage extends React.Component {
 
           {!fromCollective.isIncognito && (
             <Flex flexWrap="wrap" justifyContent="center" mt={2}>
-              <ShareLink href={tweetURL({ url: referralURL, text: message })}>
+              <ShareLink href={tweetURL({ url: shareURL, text: message })}>
                 <Twitter size="1.2em" color="#38A1F3" />
                 <FormattedMessage id="tweetIt" defaultMessage="Tweet it" />
               </ShareLink>
-              <ShareLink href={facebooKShareURL({ u: referralURL })}>
+              <ShareLink href={facebooKShareURL({ u: shareURL })}>
                 <Facebook size="1.2em" color="#3c5a99" />
                 <FormattedMessage id="shareIt" defaultMessage="Share it" />
               </ShareLink>

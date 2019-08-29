@@ -144,10 +144,6 @@ class Collective extends React.Component {
     const { intl, LoggedInUser, query, collective } = this.props;
     const status = get(query, 'status');
 
-    const donateParams = { collectiveSlug: collective.slug, verb: 'donate' };
-    if (query.referral) {
-      donateParams.referral = query.referral;
-    }
     const backgroundImage =
       collective.backgroundImage || get(collective, 'parentCollective.backgroundImage') || defaultBackgroundImage;
     const canEditCollective = LoggedInUser && LoggedInUser.canEditCollective(collective);
@@ -290,12 +286,7 @@ class Collective extends React.Component {
                   {collective.isActive && collective.host && (
                     <div className="sidebar tiers" id="contribute">
                       {collective.tiers.map(tier => (
-                        <TierCard
-                          key={`TierCard-${tier.slug}`}
-                          collective={collective}
-                          tier={tier}
-                          referral={query.referral}
-                        />
+                        <TierCard key={`TierCard-${tier.slug}`} collective={collective} tier={tier} />
                       ))}
                       <div className="CustomDonationTierCard">
                         <Link route="orderCollective" params={{ collectiveSlug: collective.slug, verb: 'donate' }}>

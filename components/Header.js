@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 import TopBar from './TopBar';
 
-import { truncate, getQueryParams } from '../lib/utils';
-import storage from '../lib/storage';
+import { truncate } from '../lib/utils';
 
 class Header extends React.Component {
   static propTypes = {
@@ -43,13 +42,6 @@ class Header extends React.Component {
         name,
         content: meta[name],
       });
-    }
-  }
-
-  componentDidMount() {
-    const urlParams = getQueryParams();
-    if (urlParams.referral) {
-      storage.set('referral', urlParams.referral, 48 * 60 * 60 * 1000); // we keep the referral for 48h or until we receive a new ?referral=
     }
   }
 
